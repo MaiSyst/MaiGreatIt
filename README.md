@@ -2,16 +2,17 @@
 
 Orange MaxIt clone by MaiSYST
 
-## Getting Started
+## Great It App
 
-This project is a starting point for a Flutter application.
+This project is a Orange Max It Clone by **MaiSYST**.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Package to available on Great It
+1. Display Svg icon by [flutter_svg](https://pub.dev/packages/flutter_svg)
+2. Splash screen by [flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# MaiGreatIt
+#### Screenshots
+1. Home screen
+    ![First position 1](./1.jpg "Home Screen")
+    ![First position 2](./2.jpg "Home Screen")
