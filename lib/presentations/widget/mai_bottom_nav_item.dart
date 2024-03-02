@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class MaiBottomNavItem extends StatelessWidget {
+class MaiBottomNavItem extends HookWidget {
   final String title;
   final Widget icon;
   final bool isSelected;

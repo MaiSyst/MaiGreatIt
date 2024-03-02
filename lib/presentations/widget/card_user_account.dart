@@ -1,23 +1,25 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mai_greatit/presentations/widget/section_user_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CardUserAccount extends StatefulWidget {
+class CardUserAccount extends HookWidget {
   const CardUserAccount({super.key});
-
-  @override
-  State<CardUserAccount> createState() => _CardUserAccountState();
-}
-
-class _CardUserAccountState extends State<CardUserAccount> {
   @override
   Widget build(BuildContext context) {
+        final animatedIconArrowController=useAnimationController(duration: const Duration(milliseconds: 200));
+    final animatedIconArrow=useAnimation<double>(
+        Tween<double>(begin: 180,end: 1).animate(CurvedAnimation(parent: animatedIconArrowController,
+            curve: Curves.linearToEaseOut))
+    );
+    final isOpenCardAccount=useState(false);
     return Material(
       elevation: 15,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
           width: MediaQuery.of(context).size.width - 30,
-          height: 200,
+          height: isOpenCardAccount.value?250:180,
           decoration: const BoxDecoration(
               color: Color(0xFF263238),
               borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -34,13 +36,24 @@ class _CardUserAccountState extends State<CardUserAccount> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                       const Expanded(
+                       Expanded(
                             child: SectionUserAccount(
-                                amount: 53,
+                                amount: 1000000,
                                 title: "Solde principal",
                                 isLeftCard: true,
                                 icon: "orangeMoney",
-                                sizeIcon: 15)),
+                                sizeIcon: 15,
+                              animatedIconArrow: animatedIconArrow,
+                              animatedIconArrowController: animatedIconArrowController,
+                              onPressedAccountPlus: (){
+                                  if(isOpenCardAccount.value){
+                                    animatedIconArrowController.reverse();
+                                  }else{
+                                    animatedIconArrowController.forward();
+                                  }
+                              isOpenCardAccount.value=!isOpenCardAccount.value;
+                              },
+                            )),
                         const SizedBox(width: 5,),
                         Container(
                           width: 1,
@@ -49,13 +62,33 @@ class _CardUserAccountState extends State<CardUserAccount> {
                         const SizedBox(width: 5,),
                         const Expanded(
                             child: SectionUserAccount(
-                                amount: 13,
+                                amount: 55000,
                                 title:"Principal", isLeftCard: false,
                                 icon: "phone",sizeIcon:25)),
                       ],
                     ),
                   ),
                 ),
+                isOpenCardAccount.value?
+                    Container(
+                        width: double.infinity,
+                        height: 80,
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: const Color(0xff2b3d46).withAlpha(150),
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Compte Plus",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+                             Text("450.000 CFA",style: TextStyle(color: Colors.white,fontSize: 16),)
+                          ],
+                        ),
+                      ):
+                    const SizedBox(),
                 Expanded(
                     flex: 1,
                     child: TextButton(
